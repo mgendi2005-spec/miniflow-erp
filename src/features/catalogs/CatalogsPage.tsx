@@ -31,8 +31,9 @@ export function CatalogsPage({ state }: CatalogsPageProps) {
       <div style={{ marginBottom: "24px" }}>
         <h2>Master Data Catalogs</h2>
         <p style={{ color: "#666", marginBottom: "12px" }}>
-          Catalogs are static reference data used by transactional documents. They
-          define the universe of valid values for sales orders and other transactions.
+          Catalogs are static reference data used by transactional documents.
+          They define the universe of valid values for sales orders and other
+          transactions.
         </p>
       </div>
 
@@ -195,23 +196,24 @@ export function CatalogsPage({ state }: CatalogsPageProps) {
         <h4>About Catalogs in MiniFlow ERP</h4>
         <ul style={{ color: "#666", lineHeight: "1.6" }}>
           <li>
-            <strong>Catalog Data:</strong> Static master data that changes infrequently
+            <strong>Catalog Data:</strong> Static master data that changes
+            infrequently
           </li>
           <li>
-            <strong>Transactional Data:</strong> Sales orders reference catalog data
-            using IDs
+            <strong>Transactional Data:</strong> Sales orders reference catalog
+            data using IDs
           </li>
           <li>
-            Catalogs represent the "valid universe" for transactions (e.g., only these
-            customers, products, warehouses exist)
+            Catalogs represent the "valid universe" for transactions (e.g., only
+            these customers, products, warehouses exist)
           </li>
           <li>
-            In a real ERP, catalogs would have separate management interfaces with
-            audit trails
+            In a real ERP, catalogs would have separate management interfaces
+            with audit trails
           </li>
           <li>
-            When a sales order references a customer by ID, the customer data cannot
-            change retroactively
+            When a sales order references a customer by ID, the customer data
+            cannot change retroactively
           </li>
         </ul>
       </div>

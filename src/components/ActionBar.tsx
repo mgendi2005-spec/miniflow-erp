@@ -1,12 +1,12 @@
 /**
  * Action Bar Component
- * 
+ *
  * THIS IS THE KEY COMPONENT DEMONSTRATING DATA-DRIVEN WORKFLOW.
- * 
+ *
  * Instead of:
  *   if (order.status === "DRAFT") return <button>Submit</button>
  *   else if (order.status === "PENDING_APPROVAL") return <button>Approve</button>
- * 
+ *
  * We:
  *   1. Query the workflow configuration for allowed actions
  *   2. Render buttons dynamically from that configuration

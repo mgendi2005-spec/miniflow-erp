@@ -10,7 +10,9 @@ interface FinancePageProps {
 }
 
 export function FinancePage({ state }: FinancePageProps) {
-  const [selectedInvoiceId, setSelectedInvoiceId] = useState<string | null>(null);
+  const [selectedInvoiceId, setSelectedInvoiceId] = useState<string | null>(
+    null,
+  );
 
   const selectedInvoice = selectedInvoiceId
     ? state.finance.invoices.find((inv) => inv.id === selectedInvoiceId)
@@ -26,13 +28,16 @@ export function FinancePage({ state }: FinancePageProps) {
         </p>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
+      <div
+        style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}
+      >
         {/* Invoices List */}
         <div style={{ gridColumn: selectedInvoiceId ? "1" : "1 / -1" }}>
           <h3>Invoices</h3>
           {state.finance.invoices.length === 0 ? (
             <p style={{ color: "#999" }}>
-              No invoices yet. Create and ship a sales order to generate an invoice.
+              No invoices yet. Create and ship a sales order to generate an
+              invoice.
             </p>
           ) : (
             <table className="data-table">
@@ -48,7 +53,7 @@ export function FinancePage({ state }: FinancePageProps) {
               <tbody>
                 {state.finance.invoices.map((invoice) => {
                   const customer = state.catalog.customers.find(
-                    (c) => c.id === invoice.customerId
+                    (c) => c.id === invoice.customerId,
                   );
                   const statusColor =
                     invoice.status === "FINALIZED" ? "#28a745" : "#ffc107";
@@ -62,7 +67,9 @@ export function FinancePage({ state }: FinancePageProps) {
                       style={{
                         cursor: "pointer",
                         background:
-                          selectedInvoiceId === invoice.id ? "#e7f3ff" : "transparent",
+                          selectedInvoiceId === invoice.id
+                            ? "#e7f3ff"
+                            : "transparent",
                       }}
                     >
                       <td>
@@ -99,13 +106,19 @@ export function FinancePage({ state }: FinancePageProps) {
             <h3>Invoice Details</h3>
             <div className="panel">
               <div className="panel-header">
-                <div className="panel-title">{selectedInvoice.invoiceNumber}</div>
+                <div className="panel-title">
+                  {selectedInvoice.invoiceNumber}
+                </div>
                 <span
                   style={{
                     background:
-                      selectedInvoice.status === "FINALIZED" ? "#d4edda" : "#fff3cd",
+                      selectedInvoice.status === "FINALIZED"
+                        ? "#d4edda"
+                        : "#fff3cd",
                     color:
-                      selectedInvoice.status === "FINALIZED" ? "#155724" : "#856404",
+                      selectedInvoice.status === "FINALIZED"
+                        ? "#155724"
+                        : "#856404",
                     padding: "4px 8px",
                     borderRadius: "3px",
                     fontSize: "0.85rem",
@@ -122,7 +135,7 @@ export function FinancePage({ state }: FinancePageProps) {
                   <div style={{ color: "#666", marginTop: "4px" }}>
                     {
                       state.sales.orders.find(
-                        (o) => o.id === selectedInvoice.salesOrderId
+                        (o) => o.id === selectedInvoice.salesOrderId,
                       )?.orderNumber
                     }
                   </div>
@@ -133,7 +146,7 @@ export function FinancePage({ state }: FinancePageProps) {
                   <div style={{ color: "#666", marginTop: "4px" }}>
                     {
                       state.catalog.customers.find(
-                        (c) => c.id === selectedInvoice.customerId
+                        (c) => c.id === selectedInvoice.customerId,
                       )?.name
                     }
                   </div>
@@ -141,12 +154,16 @@ export function FinancePage({ state }: FinancePageProps) {
 
                 <div style={{ marginBottom: "16px" }}>
                   <strong>Invoice Date:</strong>{" "}
-                  <span style={{ color: "#666" }}>{selectedInvoice.invoiceDate}</span>
+                  <span style={{ color: "#666" }}>
+                    {selectedInvoice.invoiceDate}
+                  </span>
                 </div>
 
                 <div style={{ marginBottom: "16px" }}>
                   <strong>Due Date:</strong>{" "}
-                  <span style={{ color: "#666" }}>{selectedInvoice.dueDate}</span>
+                  <span style={{ color: "#666" }}>
+                    {selectedInvoice.dueDate}
+                  </span>
                 </div>
 
                 <div style={{ marginBottom: "16px" }}>
@@ -163,7 +180,7 @@ export function FinancePage({ state }: FinancePageProps) {
                     <tbody>
                       {selectedInvoice.items.map((item) => {
                         const product = state.catalog.products.find(
-                          (p) => p.id === item.productId
+                          (p) => p.id === item.productId,
                         );
                         return (
                           <tr key={item.id}>
@@ -178,7 +195,13 @@ export function FinancePage({ state }: FinancePageProps) {
                   </table>
                 </div>
 
-                <div style={{ marginBottom: "16px", paddingTop: "12px", borderTop: "1px solid #eee" }}>
+                <div
+                  style={{
+                    marginBottom: "16px",
+                    paddingTop: "12px",
+                    borderTop: "1px solid #eee",
+                  }}
+                >
                   <strong>Total:</strong>{" "}
                   <span style={{ fontSize: "1.2rem", color: "#007bff" }}>
                     {selectedInvoice.totalAmount.toFixed(2)} EGP
@@ -201,19 +224,22 @@ export function FinancePage({ state }: FinancePageProps) {
         <h4>About Finance in MiniFlow ERP</h4>
         <ul style={{ color: "#666", lineHeight: "1.6" }}>
           <li>
-            Invoices are automatically created when a sales order is marked as SHIPPED
+            Invoices are automatically created when a sales order is marked as
+            SHIPPED
           </li>
           <li>
             Invoice status starts as DRAFT and can be finalized by Finance Users
           </li>
           <li>
-            Due date is calculated based on the Payment Terms linked to the original
-            order
+            Due date is calculated based on the Payment Terms linked to the
+            original order
           </li>
           <li>
-            This demonstrates cross-domain communication: Sales → Inventory → Finance
+            This demonstrates cross-domain communication: Sales → Inventory →
+            Finance
           </li>
-          <li>See the implementation in <code>createInvoiceForOrder()</code> in
+          <li>
+            See the implementation in <code>createInvoiceForOrder()</code> in
             the workflow engine
           </li>
         </ul>

@@ -1,6 +1,6 @@
 /**
  * MiniFlow ERP - Main Application
- * 
+ *
  * This is the root component that manages global state and navigation
  */
 
@@ -41,7 +41,7 @@ function App() {
   const handleResetData = () => {
     if (
       confirm(
-        "Are you sure you want to reset to the initial demo data? This will lose all changes."
+        "Are you sure you want to reset to the initial demo data? This will lose all changes.",
       )
     ) {
       const newState = resetAppState(state.currentUser.role);

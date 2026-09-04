@@ -1,6 +1,6 @@
 /**
  * Initial Sample Data
- * 
+ *
  * This file contains sample Egyptian businesses and products
  * to demonstrate the ERP system with realistic data.
  */

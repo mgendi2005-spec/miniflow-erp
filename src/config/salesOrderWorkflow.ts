@@ -1,17 +1,17 @@
 /**
  * Sales Order Workflow Configuration
- * 
+ *
  * This file demonstrates DATA-DRIVEN workflow design.
- * 
+ *
  * Instead of hard-coding status checks throughout the app like:
  *   if (order.status === "DRAFT" && userRole === "SALES_USER") { showEditButton = true }
- * 
+ *
  * We define the entire workflow as data in this configuration.
  * The WorkflowEngine reads this configuration to determine:
  *   - What actions are allowed in each status
  *   - Which roles can perform each action
  *   - What the next status should be after an action
- * 
+ *
  * This approach has major advantages:
  * - Adding a new status requires only configuration changes, not code changes
  * - Business rules are centralized and readable
@@ -19,7 +19,11 @@
  * - Non-developers (business analysts) can potentially read this configuration
  */
 
-import type { SalesOrderStatus, SalesOrderAction, UserRole } from '../types/erp';
+import type {
+  SalesOrderStatus,
+  SalesOrderAction,
+  UserRole,
+} from "../types/erp";
 
 /**
  * Represents an action allowed in a specific status by a specific role
@@ -121,12 +125,12 @@ export const SALES_ORDER_WORKFLOW: WorkflowTransition[] = [
  */
 export function getAvailableActions(
   status: SalesOrderStatus,
-  userRole: UserRole
+  userRole: UserRole,
 ): WorkflowTransition[] {
   return SALES_ORDER_WORKFLOW.filter(
     (transition) =>
       transition.fromStatus === status &&
-      transition.allowedRoles.includes(userRole)
+      transition.allowedRoles.includes(userRole),
   );
 }
 
@@ -137,13 +141,13 @@ export function getAvailableActions(
 export function validateAndGetNextStatus(
   currentStatus: SalesOrderStatus,
   action: SalesOrderAction,
-  userRole: UserRole
+  userRole: UserRole,
 ): SalesOrderStatus | null {
   const transition = SALES_ORDER_WORKFLOW.find(
     (t) =>
       t.fromStatus === currentStatus &&
       t.action === action &&
-      t.allowedRoles.includes(userRole)
+      t.allowedRoles.includes(userRole),
   );
 
   return transition ? transition.toStatus : null;
@@ -154,10 +158,10 @@ export function validateAndGetNextStatus(
  */
 export function getActionLabel(
   status: SalesOrderStatus,
-  action: SalesOrderAction
+  action: SalesOrderAction,
 ): string {
   const transition = SALES_ORDER_WORKFLOW.find(
-    (t) => t.fromStatus === status && t.action === action
+    (t) => t.fromStatus === status && t.action === action,
   );
   return transition ? transition.label : action;
 }
@@ -167,10 +171,10 @@ export function getActionLabel(
  */
 export function getActionVariant(
   status: SalesOrderStatus,
-  action: SalesOrderAction
+  action: SalesOrderAction,
 ): string {
   const transition = SALES_ORDER_WORKFLOW.find(
-    (t) => t.fromStatus === status && t.action === action
+    (t) => t.fromStatus === status && t.action === action,
   );
   return transition?.variant || "secondary";
 }

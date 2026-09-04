@@ -1,6 +1,6 @@
 /**
  * Audit Timeline Component
- * 
+ *
  * Displays the complete lifecycle of an entity through its audit trail.
  * Shows every action, who performed it, when, and the status change.
  */
@@ -57,7 +57,9 @@ export function AuditTimeline({ entries }: AuditTimelineProps) {
                 <strong>{ACTION_LABELS[entry.action] || entry.action}</strong>
               </div>
               <div className="timeline-details">
-                <span className="role-badge">{ROLE_LABELS[entry.performedByRole]}</span>
+                <span className="role-badge">
+                  {ROLE_LABELS[entry.performedByRole]}
+                </span>
                 <span className="status-transition">
                   {entry.previousStatus ? (
                     <>

@@ -23,14 +23,20 @@ export function InventoryPage({ state }: InventoryPageProps) {
       <div style={{ display: "grid", gap: "24px" }}>
         {state.catalog.warehouses.map((warehouse) => {
           const warehouseStock = state.inventory.stock.filter(
-            (s) => s.warehouseId === warehouse.id
+            (s) => s.warehouseId === warehouse.id,
           );
 
           return (
             <div key={warehouse.id}>
               <h3>
                 {warehouse.name}
-                <span style={{ fontSize: "0.9rem", color: "#999", marginLeft: "12px" }}>
+                <span
+                  style={{
+                    fontSize: "0.9rem",
+                    color: "#999",
+                    marginLeft: "12px",
+                  }}
+                >
                   {warehouse.location}
                 </span>
               </h3>
@@ -49,10 +55,12 @@ export function InventoryPage({ state }: InventoryPageProps) {
                 <tbody>
                   {warehouseStock.map((stock) => {
                     const product = state.catalog.products.find(
-                      (p) => p.id === stock.productId
+                      (p) => p.id === stock.productId,
                     );
-                    const total = stock.availableQuantity + stock.reservedQuantity;
-                    const utilization = total > 0 ? (stock.reservedQuantity / total) * 100 : 0;
+                    const total =
+                      stock.availableQuantity + stock.reservedQuantity;
+                    const utilization =
+                      total > 0 ? (stock.reservedQuantity / total) * 100 : 0;
 
                     return (
                       <tr key={stock.id}>
@@ -109,7 +117,9 @@ export function InventoryPage({ state }: InventoryPageProps) {
                                 color: "#333",
                               }}
                             >
-                              {utilization > 10 ? `${utilization.toFixed(0)}%` : ""}
+                              {utilization > 10
+                                ? `${utilization.toFixed(0)}%`
+                                : ""}
                             </div>
                           </div>
                         </td>
@@ -137,15 +147,15 @@ export function InventoryPage({ state }: InventoryPageProps) {
             <strong>Available Quantity:</strong> Stock ready for new orders
           </li>
           <li>
-            <strong>Reserved Quantity:</strong> Stock allocated to confirmed orders
-            (locked when order reaches READY_TO_SHIP)
+            <strong>Reserved Quantity:</strong> Stock allocated to confirmed
+            orders (locked when order reaches READY_TO_SHIP)
           </li>
           <li>
             <strong>Total:</strong> Available + Reserved
           </li>
           <li>
-            When an order moves to <code>READY_TO_SHIP</code> via "Reserve Stock"
-            action, inventory is updated by the workflow engine
+            When an order moves to <code>READY_TO_SHIP</code> via "Reserve
+            Stock" action, inventory is updated by the workflow engine
           </li>
           <li>
             Insufficient stock prevents the reservation action (see code in{" "}

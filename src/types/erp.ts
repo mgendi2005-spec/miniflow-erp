@@ -1,6 +1,6 @@
 /**
  * MiniFlow ERP - Type Definitions
- * 
+ *
  * This file defines all the types used across the ERP system.
  * Understanding these types is the first step to understanding ERP architecture.
  */
@@ -93,7 +93,7 @@ export interface InventoryDomain {
  * DRAFT → PENDING_APPROVAL → CONFIRMED → READY_TO_SHIP → SHIPPED
  *       ↓
  *    CANCELLED
- * 
+ *
  * PENDING_APPROVAL can also go back to DRAFT (rejection)
  */
 export type SalesOrderStatus =

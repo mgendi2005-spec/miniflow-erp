@@ -73,7 +73,7 @@ export function SalesPage({ state, onStateChange }: SalesPageProps) {
     const { state: updatedState, result } = executeWorkflowAction(
       state,
       selectedOrder.id,
-      action
+      action,
     );
 
     if (result.success) {
@@ -121,12 +121,16 @@ export function SalesPage({ state, onStateChange }: SalesPageProps) {
         </div>
       )}
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
+      <div
+        style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}
+      >
         {/* Orders List */}
         <div style={{ gridColumn: selectedOrderId ? "1" : "1 / -1" }}>
           <h3>Orders List</h3>
           {state.sales.orders.length === 0 ? (
-            <p style={{ color: "#999" }}>No orders yet. Create one to get started.</p>
+            <p style={{ color: "#999" }}>
+              No orders yet. Create one to get started.
+            </p>
           ) : (
             <table className="data-table">
               <thead>
@@ -140,7 +144,7 @@ export function SalesPage({ state, onStateChange }: SalesPageProps) {
               <tbody>
                 {state.sales.orders.map((order) => {
                   const customer = state.catalog.customers.find(
-                    (c) => c.id === order.customerId
+                    (c) => c.id === order.customerId,
                   );
                   return (
                     <tr
@@ -149,7 +153,9 @@ export function SalesPage({ state, onStateChange }: SalesPageProps) {
                       style={{
                         cursor: "pointer",
                         background:
-                          selectedOrderId === order.id ? "#e7f3ff" : "transparent",
+                          selectedOrderId === order.id
+                            ? "#e7f3ff"
+                            : "transparent",
                       }}
                     >
                       <td>
@@ -187,7 +193,7 @@ export function SalesPage({ state, onStateChange }: SalesPageProps) {
                   <strong>Customer:</strong>{" "}
                   {
                     state.catalog.customers.find(
-                      (c) => c.id === selectedOrder.customerId
+                      (c) => c.id === selectedOrder.customerId,
                     )?.name
                   }
                 </div>
@@ -196,7 +202,7 @@ export function SalesPage({ state, onStateChange }: SalesPageProps) {
                   <strong>Warehouse:</strong>{" "}
                   {
                     state.catalog.warehouses.find(
-                      (w) => w.id === selectedOrder.warehouseId
+                      (w) => w.id === selectedOrder.warehouseId,
                     )?.name
                   }
                 </div>
@@ -215,7 +221,7 @@ export function SalesPage({ state, onStateChange }: SalesPageProps) {
                     <tbody>
                       {selectedOrder.items.map((item) => {
                         const product = state.catalog.products.find(
-                          (p) => p.id === item.productId
+                          (p) => p.id === item.productId,
                         );
                         return (
                           <tr key={item.id}>
@@ -230,7 +236,13 @@ export function SalesPage({ state, onStateChange }: SalesPageProps) {
                   </table>
                 </div>
 
-                <div style={{ marginBottom: "16px", paddingTop: "12px", borderTop: "1px solid #eee" }}>
+                <div
+                  style={{
+                    marginBottom: "16px",
+                    paddingTop: "12px",
+                    borderTop: "1px solid #eee",
+                  }}
+                >
                   <strong>Total Amount:</strong>{" "}
                   <span style={{ fontSize: "1.2rem", color: "#007bff" }}>
                     {selectedOrder.totalAmount.toFixed(2)} EGP

@@ -1,20 +1,20 @@
 /**
  * Workflow Engine Service
- * 
+ *
  * This service handles the BUSINESS LOGIC of executing workflow actions.
  * It uses the workflow configuration to determine valid transitions,
  * but it implements side effects like:
  * - Reserving stock from inventory
  * - Creating invoices in the finance domain
  * - Writing audit trail entries
- * 
+ *
  * WHY THIS REMAINS IN CODE (not configuration):
  * - These are complex business rules that depend on multiple domains
  * - Stock reservation needs inventory checks (prevents overselling)
  * - Invoice creation requires calculating amounts, tax, due dates
  * - These rules change infrequently and require code review and testing
  * - Configuration works for state machines, not for complex side effects
- * 
+ *
  * This separation (configuration for transitions, code for side effects)
  * is how real ERPs work. A backend API would return both:
  *   { allowedActions: [...], nextStatus: "...", sideEffects: [...] }
@@ -28,9 +28,7 @@ import type {
   InventoryStock,
   Invoice,
 } from "../types/erp";
-import {
-  validateAndGetNextStatus,
-} from "../config/salesOrderWorkflow";
+import { validateAndGetNextStatus } from "../config/salesOrderWorkflow";
 
 export interface WorkflowActionResult {
   success: boolean;
@@ -52,7 +50,7 @@ export interface StockReservationResult {
 export function executeWorkflowAction(
   state: AppState,
   orderId: string,
-  action: SalesOrderAction
+  action: SalesOrderAction,
 ): { state: AppState; result: WorkflowActionResult } {
   const order = state.sales.orders.find((o) => o.id === orderId);
 
@@ -67,7 +65,7 @@ export function executeWorkflowAction(
   const nextStatus = validateAndGetNextStatus(
     order.status,
     action,
-    state.currentUser.role
+    state.currentUser.role,
   );
 
   if (!nextStatus) {
@@ -138,7 +136,7 @@ export function executeWorkflowAction(
     sales: {
       ...newState.sales,
       orders: newState.sales.orders.map((o) =>
-        o.id === orderId ? updatedOrder : o
+        o.id === orderId ? updatedOrder : o,
       ),
     },
     auditTrail: [...newState.auditTrail, auditEntry],
@@ -160,7 +158,7 @@ export function executeWorkflowAction(
 
 function reserveStockForOrder(
   state: AppState,
-  order: SalesOrder
+  order: SalesOrder,
 ): {
   success: boolean;
   error?: string;
@@ -172,7 +170,7 @@ function reserveStockForOrder(
   // Check each order item
   for (const item of order.items) {
     const stock = state.inventory.stock.find(
-      (s) => s.warehouseId === warehouseId && s.productId === item.productId
+      (s) => s.warehouseId === warehouseId && s.productId === item.productId,
     );
 
     if (!stock) {
@@ -182,12 +180,11 @@ function reserveStockForOrder(
       };
     }
 
-    const availableAfterReservation =
-      stock.availableQuantity - item.quantity;
+    const availableAfterReservation = stock.availableQuantity - item.quantity;
 
     if (availableAfterReservation < 0) {
       const product = state.catalog.products.find(
-        (p) => p.id === item.productId
+        (p) => p.id === item.productId,
       );
       const productName = product?.name || item.productId;
       return {
@@ -208,7 +205,7 @@ function reserveStockForOrder(
       inventory: {
         ...updatedState.inventory,
         stock: updatedState.inventory.stock.map((s) =>
-          s.id === stock.id ? updatedStock : s
+          s.id === stock.id ? updatedStock : s,
         ),
       },
     };
@@ -226,17 +223,17 @@ function reserveStockForOrder(
 
 function createInvoiceForOrder(
   state: AppState,
-  order: SalesOrder
+  order: SalesOrder,
 ): {
   success: boolean;
   error?: string;
   updatedState?: AppState;
 } {
   const customer = state.catalog.customers.find(
-    (c) => c.id === order.customerId
+    (c) => c.id === order.customerId,
   );
   const paymentTerm = state.catalog.paymentTerms.find(
-    (p) => p.id === order.paymentTermId
+    (p) => p.id === order.paymentTermId,
   );
 
   if (!customer || !paymentTerm) {
@@ -290,7 +287,7 @@ function createInvoiceForOrder(
  */
 export function getAvailableActionsForOrder(
   _state: AppState,
-  _order: SalesOrder
+  _order: SalesOrder,
 ): SalesOrderAction[] {
   // This is currently unused but available for future use
   // In the current implementation, ActionBar directly uses getAvailableActions

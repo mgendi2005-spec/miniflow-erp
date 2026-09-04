@@ -1,6 +1,6 @@
 /**
  * Status Badge Component
- * 
+ *
  * Displays the current status of an order with color coding.
  * This component is status-agnostic and will work with new statuses
  * added to the configuration.

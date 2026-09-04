@@ -1,6 +1,6 @@
 /**
  * App Layout Component
- * 
+ *
  * Provides the main layout structure: header, sidebar, and content area
  */
 
@@ -15,7 +15,9 @@ interface AppLayoutProps {
   onResetData: () => void;
   children: ReactNode;
   currentPage: "dashboard" | "sales" | "inventory" | "finance" | "catalogs";
-  onNavigate: (page: "dashboard" | "sales" | "inventory" | "finance" | "catalogs") => void;
+  onNavigate: (
+    page: "dashboard" | "sales" | "inventory" | "finance" | "catalogs",
+  ) => void;
 }
 
 export function AppLayout({
