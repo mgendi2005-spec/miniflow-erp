@@ -1,8 +1,8 @@
-# MiniFlow ERP - Learning Project
+MiniFlow ERP -  Project
 
 A small, educational ERP system built with React + TypeScript that demonstrates real ERP architecture principles, workflow management, and cross-domain communication.
 
-## 🎓 What You'll Learn
+
 
 This project teaches these fundamental ERP concepts:
 
@@ -15,9 +15,9 @@ This project teaches these fundamental ERP concepts:
 7. **Domain Interactions** - How one action triggers effects in other domains
 8. **State Machines** - Validated transitions between statuses
 
-## 🚀 Quick Start
 
-### Installation
+
+# Installation
 
 ```bash
 cd mini-erp
@@ -35,14 +35,14 @@ npm run preview    # Preview production build
 npm run lint       # Check for errors
 ```
 
-## 📚 THE DATA-DRIVEN WORKFLOW (Core Learning)
+## THE DATA-DRIVEN WORKFLOW (Core Learning)
 
 ### Problem: Hard-Coded Workflow
 
 Most apps hard-code state transitions like this:
 
 ```typescript
-// ❌ Bad - Every new status requires code changes
+ - Every new status requires code changes
 function renderActions(order, role) {
   if (order.status === "DRAFT" && role === "SALES_USER") {
     return <button>Submit</button>;
@@ -69,7 +69,7 @@ Problems:
 We define workflow as data:
 
 ```typescript
-// ✅ Good - src/config/salesOrderWorkflow.ts
+//Good - src/config/salesOrderWorkflow.ts
 const SALES_ORDER_WORKFLOW: WorkflowTransition[] = [
   {
     fromStatus: "DRAFT",
@@ -120,7 +120,7 @@ export function ActionBar({ order, userRole, onAction }) {
 - Scalable to hundreds of statuses
 - Easy to test
 
-## 🔄 Complete Test Scenario
+## Complete Test Scenario
 
 Follow these steps to verify the architecture:
 
@@ -129,7 +129,7 @@ Follow these steps to verify the architecture:
 1. Use the role dropdown → Select "SALES_USER: Fatima Sales Rep"
 2. Go to **Sales** tab
 3. Click **Create New Order**
-4. ✅ Status is **DRAFT**
+4. Status is **DRAFT**
 5. Check **Audit Timeline** → See "Created" entry
 
 ### Step 2: Submit for Approval (SALES_USER)
@@ -137,7 +137,7 @@ Follow these steps to verify the architecture:
 1. Order still selected
 2. Click **Submit for Approval** button
    - (Button appears because config says SALES_USER can submit from DRAFT)
-3. ✅ Status changes to **PENDING_APPROVAL**
+3. Status changes to **PENDING_APPROVAL**
 4. Check **Audit Timeline** → See new entry showing DRAFT → PENDING_APPROVAL
 
 ### Step 3: Approve (SALES_MANAGER)
@@ -146,7 +146,7 @@ Follow these steps to verify the architecture:
 2. Order still shows (buttons changed)
 3. Click **Approve Order**
    - (Button appears because config says SALES_MANAGER can approve)
-4. ✅ Status changes to **CONFIRMED**
+4. Status changes to **CONFIRMED**
 5. Check **Audit Timeline** → New entry by SALES_MANAGER
 
 ### Step 4: Reserve Stock (WAREHOUSE_USER)
@@ -154,7 +154,7 @@ Follow these steps to verify the architecture:
 1. Use role dropdown → Select "WAREHOUSE_USER: Omar Warehouse Staff"
 2. Order still shows (new buttons available)
 3. Click **Reserve Stock**
-4. ✅ Status changes to **READY_TO_SHIP**
+4. Status changes to **READY_TO_SHIP**
 5. Go to **Inventory** tab
    - See "Available" decreased, "Reserved" increased
    - This confirms cross-domain communication works
@@ -164,38 +164,38 @@ Follow these steps to verify the architecture:
 
 1. Still as WAREHOUSE_USER
 2. Click **Mark as Shipped**
-3. ✅ Status changes to **SHIPPED**
+3. Status changes to **SHIPPED**
 4. Go to **Finance** tab
-   - ✅ New invoice was auto-created
+   - New invoice was auto-created
    - Invoice has same items and total as order
    - Due date calculated from payment terms
 5. Check **Audit Timeline** → New entry showing READY_TO_SHIP → SHIPPED
 
 ### What You Just Demonstrated
 
-- ✅ Workflow state machine (DRAFT → ... → SHIPPED)
-- ✅ Role-based actions (different users, different buttons)
-- ✅ Configuration-driven UI (ActionBar never hard-coded)
-- ✅ Cross-domain effects (inventory updated, invoice created)
-- ✅ Audit trail (complete history)
-- ✅ Data persistence (refresh page, data stays via localStorage)
+- Workflow state machine (DRAFT → ... → SHIPPED)
+- Role-based actions (different users, different buttons)
+- Configuration-driven UI (ActionBar never hard-coded)
+- Cross-domain effects (inventory updated, invoice created)
+- Audit trail (complete history)
+- Data persistence (refresh page, data stays via localStorage)
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 src/
 ├── types/
-│   └── erp.ts                   # ⭐ Data model: Customer, Product, SalesOrder, etc.
+│   └── erp.ts                   # Data model: Customer, Product, SalesOrder, etc.
 ├── config/
-│   └── salesOrderWorkflow.ts    # ⭐ Configuration: Statuses, actions, transitions
+│   └── salesOrderWorkflow.ts    # Configuration: Statuses, actions, transitions
 ├── services/
-│   └── workflowEngine.ts        # ⭐ Business logic: Reservation, invoicing
+│   └── workflowEngine.ts        # Business logic: Reservation, invoicing
 ├── data/
 │   └── initialData.ts           # Sample data + localStorage helpers
 ├── components/
 │   ├── AppLayout.tsx            # Header, sidebar structure
 │   ├── StatusBadge.tsx          # Status display
-│   ├── ActionBar.tsx            # ⭐ GENERIC component (reads config)
+│   ├── ActionBar.tsx            # GENERIC component (reads config)
 │   └── AuditTimeline.tsx        # History visualization
 ├── features/
 │   ├── Dashboard.tsx            # Overview
@@ -206,7 +206,7 @@ src/
 └── styles/                      # CSS files
 ```
 
-## 🔑 Key Files to Study
+## Key Files to Study
 
 ### 1. Type Definitions (`src/types/erp.ts`)
 
@@ -350,9 +350,9 @@ const handleAction = (action) => {
 
 **Learning**: Single place where workflow is executed. All side effects handled by engine.
 
-## 🎯 Hard-Coded vs. Data-Driven Comparison
+## Hard-Coded vs. Data-Driven Comparison
 
-### ❌ Hard-Coded (What to Avoid)
+### Hard-Coded (What to Avoid)
 
 ```typescript
 function canUserApproveOrder(order, role) {
@@ -389,7 +389,7 @@ Problems:
 - Difficult to change rules
 - Hard to test
 
-### ✅ Data-Driven (MiniFlow Approach)
+###Data-Driven (MiniFlow Approach)
 
 ```typescript
 // Step 1: Define in configuration
@@ -421,9 +421,9 @@ Advantages:
 - Easy to test configuration
 - Scalable
 
-## 🧪 Testing Scenarios
+## Testing Scenarios
 
-### ✅ Valid Workflow
+### Valid Workflow
 
 ```
 SALES_USER creates → DRAFT
@@ -435,14 +435,14 @@ WAREHOUSE_USER ships → SHIPPED (invoice auto-created)
 
 Result: All audit entries, inventory updated, invoice exists.
 
-### ❌ Permission Denied
+### Permission Denied
 
 Create as SALES_USER. Switch to WAREHOUSE_USER. Notice:
 
 - No "Submit" button (only SALES_USER can submit)
 - Only "Reserve Stock" and "Mark Shipped" appear (but both disabled until order reaches correct status)
 
-### ❌ Business Rule Violation
+###Business Rule Violation
 
 Try to reserve stock when insufficient quantity:
 
@@ -450,15 +450,15 @@ Try to reserve stock when insufficient quantity:
 - Inventory only has 15
 - Action fails with error: "Insufficient stock"
 
-### ✅ Persistence
+### Persistence
 
 Create order. Refresh page. Order still exists (localStorage).
 
-### ✅ Reset
+### Reset
 
 Click "Reset Data" button. Returns to initial state with sample data.
 
-## 🎓 Five Questions You Should Answer
+## Five Questions You Should Answer
 
 After studying this project:
 
@@ -515,7 +515,7 @@ This is the opposite of hard-coded if/else chains.
 - Single transaction, multiple domain effects
 - No domain modifies another directly; only through workflow engine
 
-## 📊 Data Model
+## Data Model
 
 | Layer         | Entity         | Purpose                          |
 | ------------- | -------------- | -------------------------------- |
@@ -529,7 +529,7 @@ This is the opposite of hard-coded if/else chains.
 | **Finance**   | Invoice        | Financial - billing document     |
 | **Workflow**  | AuditEntry     | Historical - complete change log |
 
-## 🚀 How This Relates to Real Job Interviews
+## How This Relates to Real Job Interviews
 
 ### Interview Q1: "How would you design an order workflow?"
 
@@ -555,7 +555,7 @@ This is the opposite of hard-coded if/else chains.
 
 "For more workflows (HR, Purchasing), I'd generalize the engine. For more data, I'd add backend API and database. For cross-service communication, I'd use events (order.shipped event → Finance service creates invoice). For high throughput, add caching and async processing. The configuration-driven approach makes these changes easier because business logic is centralized."
 
-## 🎨 UI/UX Notes
+## UI/UX Notes
 
 - **Professional look**: Intentionally boring business software style
 - **Sidebar navigation**: Standard ERP layout
@@ -565,7 +565,7 @@ This is the opposite of hard-coded if/else chains.
 - **Responsive grid**: Works on smaller screens
 - **Clear error messages**: Help users understand failures
 
-## 📚 Study Guide
+## Study Guide
 
 **Day 1: Understand the types**
 
@@ -599,7 +599,7 @@ This is the opposite of hard-coded if/else chains.
 - Check localStorage persistence
 - Test role switching
 
-## 🔗 Learning Resources
+## Learning Resources
 
 - **State Machines**: Xstate documentation
 - **Workflow Engines**: Temporal, Airflow
@@ -607,7 +607,7 @@ This is the opposite of hard-coded if/else chains.
 - **Event-Driven**: Event sourcing patterns
 - **React Patterns**: Custom hooks, Context API
 
-## ✨ Next Steps
+## Next Steps
 
 - [ ] Run complete scenario from readme
 - [ ] Add a new workflow status (e.g., "ON_HOLD")
